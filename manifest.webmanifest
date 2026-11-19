@@ -2,7 +2,7 @@
   "name": "Ritmo - Treino GPS",
   "short_name": "Ritmo",
   "lang": "pt-BR",
-  "start_url": "./Index.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0b0f14",

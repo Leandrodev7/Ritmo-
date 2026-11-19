@@ -2,7 +2,7 @@
 
 const CACHE_NAME = "ritmo-offline-v1";
 const APP_SHELL = [
-  "./Index.html",
+  "./index.html",
   "./Style.css",
   "./app.js",
   "./manifest.webmanifest",
@@ -42,8 +42,8 @@ self.addEventListener("fetch", (event) => {
   if (requisicao.mode === "navigate") {
     event.respondWith(
       fetch(requisicao)
-        .then((resposta) => (resposta.ok ? resposta : caches.match("./Index.html")))
-        .catch(() => caches.match("./Index.html")),
+        .then((resposta) => (resposta.ok ? resposta : caches.match("./index.html")))
+        .catch(() => caches.match("./index.html")),
     );
     return;
   }

@@ -20,7 +20,7 @@ O GPS funciona sem internet, mas o app precisa ser aberto online uma vez para pr
 
 ## Executar localmente
 
-Abra a pasta no VS Code, inicie o **Live Server** e acesse `Index.html`. Para usar o GPS, permita a localização no navegador.
+Abra a pasta no VS Code, inicie o **Live Server** e acesse `index.html`. Para usar o GPS, permita a localização no navegador.
 
 ## Tecnologias
 
