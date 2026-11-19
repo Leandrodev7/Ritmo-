@@ -1,14 +1,16 @@
 "use strict";
 
 const CHAVE_HISTORICO = "ritmo.treinos.v1";
+const CHAVE_PESO = "ritmo.peso.v1";
 const atividades = {
-  corrida: { nome: "Corrida", cor: "verde" },
-  caminhada: { nome: "Caminhada", cor: "laranja" },
-  ciclismo: { nome: "Ciclismo", cor: "azul" },
+  corrida: { nome: "Corrida", cor: "verde", met: 8.3 },
+  caminhada: { nome: "Caminhada", cor: "laranja", met: 3.5 },
+  ciclismo: { nome: "Ciclismo", cor: "azul", met: 6.8 },
 };
 
 const botaoTreino = document.getElementById("botao-treino");
 const seletorAtividade = document.getElementById("atividade");
+const campoPeso = document.getElementById("peso");
 const statusTreino = document.getElementById("status-treino");
 const statusOffline = document.getElementById("status-offline");
 const graficoSemana = document.getElementById("grafico-semana");
@@ -16,8 +18,10 @@ const diasSemana = document.getElementById("dias-semana");
 const historicoTreinos = document.getElementById("historico-treinos");
 
 let treinos = carregarTreinos();
+campoPeso.value = carregarPeso();
 let inicioTreino = null;
 let distanciaMetros = 0;
+let pesoDoTreino = null;
 let ultimaPosicao = null;
 let recebeuPosicao = false;
 let idObservador = null;
@@ -81,7 +85,9 @@ function treinoValido(treino) {
     Number.isFinite(treino.duracaoMs) &&
     treino.duracaoMs >= 0 &&
     Number.isFinite(treino.distanciaKm) &&
-    treino.distanciaKm >= 0
+    treino.distanciaKm >= 0 &&
+    (treino.caloriasKcal === undefined ||
+      (Number.isFinite(treino.caloriasKcal) && treino.caloriasKcal >= 0))
   );
 }
 
@@ -118,6 +124,15 @@ function salvarTreinos() {
   }
 }
 
+function carregarPeso() {
+  try {
+    const peso = Number(localStorage.getItem(CHAVE_PESO));
+    return Number.isFinite(peso) && peso >= 1 && peso <= 300 ? String(peso) : "";
+  } catch {
+    return "";
+  }
+}
+
 function formatarDistancia(distanciaKm) {
   return `${distanciaKm.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
@@ -138,6 +153,14 @@ function formatarDuracao(duracaoMs) {
     return `${minutos}min ${String(segundos).padStart(2, "0")}s`;
   }
   return `${segundos}s`;
+}
+
+function formatarVelocidadeMedia(distanciaKm, duracaoMs) {
+  const velocidade = duracaoMs > 0 ? (distanciaKm * 3600000) / duracaoMs : 0;
+  return `${velocidade.toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })} km/h média`;
 }
 
 function mostrarStatus(mensagem, erro = false) {
@@ -266,6 +289,13 @@ function atualizarHistorico() {
       treino.duracaoMs,
     )} • ${new Date(treino.inicio).toLocaleDateString("pt-BR")}`;
 
+    const calorias = Number.isFinite(treino.caloriasKcal)
+      ? `~${treino.caloriasKcal} kcal`
+      : "calorias indisponíveis";
+    info.textContent += ` · ${formatarVelocidadeMedia(
+      treino.distanciaKm,
+      treino.duracaoMs,
+    )} · ${calorias}`;
     detalhes.append(nome, info);
     linha.append(bola, detalhes);
     historicoTreinos.appendChild(linha);
@@ -328,6 +358,7 @@ function receberErroGps(erro) {
     limparTreinoEmAndamento();
     botaoTreino.textContent = "INICIAR TREINO";
     seletorAtividade.disabled = false;
+    campoPeso.disabled = false;
     mostrarStatus("Permissão de localização negada. Autorize o GPS para registrar o treino.", true);
     return;
   }
@@ -356,6 +387,7 @@ function limparTreinoEmAndamento() {
   ultimaPosicao = null;
   distanciaMetros = 0;
   recebeuPosicao = false;
+  pesoDoTreino = null;
 }
 
 function iniciarTreino() {
@@ -368,11 +400,25 @@ function iniciarTreino() {
     return;
   }
 
+  const peso = Number(campoPeso.value);
+  if (!Number.isFinite(peso) || peso < 1 || peso > 300) {
+    mostrarStatus("Informe seu peso entre 1 e 300 kg para estimar as calorias.", true);
+    campoPeso.focus();
+    return;
+  }
+  pesoDoTreino = peso;
+  try {
+    localStorage.setItem(CHAVE_PESO, String(peso));
+  } catch (erro) {
+    console.error("Não foi possível salvar o peso neste aparelho.", erro);
+  }
+
   inicioTreino = Date.now();
   ultimaPosicao = null;
   distanciaMetros = 0;
   recebeuPosicao = false;
   seletorAtividade.disabled = true;
+  campoPeso.disabled = true;
   botaoTreino.textContent = "FINALIZAR TREINO";
   mostrarStatus("Solicitando localização GPS...");
 
@@ -387,6 +433,7 @@ function iniciarTreino() {
     limparTreinoEmAndamento();
     botaoTreino.textContent = "INICIAR TREINO";
     seletorAtividade.disabled = false;
+    campoPeso.disabled = false;
     mostrarStatus("Não foi possível iniciar o GPS. Verifique a permissão de localização.", true);
     return;
   }
@@ -398,10 +445,12 @@ function finalizarTreino() {
   const inicio = inicioTreino;
   const distanciaKm = distanciaMetros / 1000;
   const atividade = seletorAtividade.value;
+  const pesoKg = pesoDoTreino;
   const recebeuPosicaoValida = recebeuPosicao;
   limparTreinoEmAndamento();
   botaoTreino.textContent = "INICIAR TREINO";
   seletorAtividade.disabled = false;
+  campoPeso.disabled = false;
 
   if (!recebeuPosicaoValida) {
     mostrarStatus(
@@ -411,11 +460,16 @@ function finalizarTreino() {
     return;
   }
 
-  treinos.unshift({ atividade, inicio, duracaoMs, distanciaKm });
+  const caloriasKcal = Math.round(
+    atividades[atividade].met * pesoKg * (duracaoMs / 3600000),
+  );
+  treinos.unshift({ atividade, inicio, duracaoMs, distanciaKm, caloriasKcal });
   atualizarPainel();
   if (salvarTreinos()) {
     mostrarStatus(
-      `Treino salvo neste aparelho · ${formatarDistancia(distanciaKm)} · ${formatarDuracao(duracaoMs)}`,
+      `Treino salvo · ${formatarDistancia(distanciaKm)} · ${formatarDuracao(
+        duracaoMs,
+      )} · ${formatarVelocidadeMedia(distanciaKm, duracaoMs)} · ~${caloriasKcal} kcal`,
     );
   } else {
     mostrarStatus("Treino registrado nesta tela, mas não foi possível salvá-lo no aparelho.", true);

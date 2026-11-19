@@ -64,6 +64,20 @@
       </section>
 
       <section class="card controles-treino" aria-label="Registrar treino">
+        <label class="rotulo" for="peso">SEU PESO (KG)</label>
+        <input
+          id="peso"
+          type="number"
+          min="1"
+          max="300"
+          step="0.1"
+          inputmode="decimal"
+          placeholder="Ex.: 70"
+          aria-describedby="aviso-calorias"
+        />
+        <p class="aviso-gps" id="aviso-calorias">
+          O peso fica salvo neste aparelho. Calorias são estimativas por atividade; o gasto real varia com ritmo e percurso.
+        </p>
         <label class="rotulo" for="atividade">ATIVIDADE</label>
         <select id="atividade">
           <option value="corrida">Corrida</option>

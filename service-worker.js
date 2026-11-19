@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "ritmo-offline-v1";
+const CACHE_NAME = "ritmo-offline-v3";
 const APP_SHELL = [
   "./index.html",
   "./Style.css",

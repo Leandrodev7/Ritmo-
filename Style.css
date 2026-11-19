@@ -194,7 +194,8 @@ body {
   cursor: not-allowed;
 }
 
-.controles-treino select {
+.controles-treino select,
+.controles-treino input {
   width: 100%;
   padding: 14px;
   border: 1px solid #303a47;
@@ -204,7 +205,12 @@ body {
   font-size: 16px;
 }
 
-.controles-treino select:disabled {
+.controles-treino label.rotulo {
+  display: block;
+}
+
+.controles-treino select:disabled,
+.controles-treino input:disabled {
   opacity: 0.6;
 }
 

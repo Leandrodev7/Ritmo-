@@ -22,6 +22,10 @@ O GPS funciona sem internet, mas o app precisa ser aberto online uma vez para pr
 
 Abra a pasta no VS Code, inicie o **Live Server** e acesse `index.html`. Para usar o GPS, permita a localização no navegador.
 
+## Velocidade e calorias
+
+A velocidade média aparece no resumo de cada treino. Para estimar calorias, informe seu peso; o cálculo usa uma intensidade padrão por atividade e não mede o gasto real. Treinos anteriores a esta atualização não têm estimativa de calorias.
+
 ## Tecnologias
 
 HTML, CSS e JavaScript, com Geolocation API, armazenamento local e service worker.
