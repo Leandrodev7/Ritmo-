@@ -1,26 +1,27 @@
 # Ritmo
 
-Um app simples para registrar treinos de corrida, caminhada e ciclismo usando o GPS do celular.
+App web para registrar treinos de corrida, caminhada e ciclismo usando o GPS do celular.
 
-Projeto de **Leandro Dev7**.
+## Recursos
 
-## O que ele faz
-
-- Mede a distância e a duração do treino.
-- Mostra o resumo da semana, os recordes e os treinos recentes.
-- Guarda o histórico neste aparelho, sem conta ou sincronização.
-- Pode ser instalado na tela inicial e preparado para abrir sem internet.
+- Registra distância e duração dos treinos.
+- Mostra resumo semanal, recordes e atividades recentes.
+- Salva o histórico no próprio navegador, sem conta.
+- Pode ser instalado no celular e usado offline após o primeiro acesso.
 
 ## Como usar
 
-1. Abra o app por HTTPS com internet e permita o acesso à localização.
-2. No celular, adicione o app à tela inicial pelo menu do navegador.
-3. Antes de sair sem internet, abra o app e espere aparecer “App pronto para uso offline”.
-4. Escolha a atividade, toque em **Iniciar treino** e aguarde o GPS encontrar sua posição.
-5. Toque em **Finalizar treino** para salvar o resultado.
+1. Publique o projeto em um endereço HTTPS.
+2. Abra no celular e permita o acesso à localização.
+3. Escolha uma atividade e toque em **Iniciar treino**.
+4. Quando terminar, toque em **Finalizar treino**.
 
-O GPS recebe sinais de satélite e não precisa de internet, mas pode demorar ou falhar em locais fechados, vales ou sob vegetação densa. O histórico fica no armazenamento do navegador deste aparelho; limpar os dados do navegador pode apagá-lo.
+O GPS funciona sem internet, mas o app precisa ser aberto online uma vez para preparar o uso offline. O histórico fica neste aparelho e pode ser apagado ao limpar os dados do navegador.
+
+## Executar localmente
+
+Abra a pasta no VS Code, inicie o **Live Server** e acesse `Index.html`. Para usar o GPS, permita a localização no navegador.
 
 ## Tecnologias
 
-HTML, CSS e JavaScript, com geolocalização do navegador, armazenamento local e service worker para suporte offline.
+HTML, CSS e JavaScript, com Geolocation API, armazenamento local e service worker.
