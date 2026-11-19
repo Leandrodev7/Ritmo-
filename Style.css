@@ -1,0 +1,229 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0b0f14;
+  color: #fff;
+  padding: 20px;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  color: #b6ff3c;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.perfil {
+  color: #8a94a6;
+  font-size: 14px;
+}
+
+.titulo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #141a22;
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.distancia {
+  color: #b6ff3c;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.tempo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.legenda {
+  color: #8a94a6;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.rotulo {
+  color: #8a94a6;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.grafico {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 120px;
+}
+
+.barra {
+  flex: 1;
+  background: #232b36;
+  border-radius: 10px;
+  height: 10%;
+}
+
+.barra.ativa {
+  background: #b6ff3c;
+}
+
+.dias {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dias span {
+  flex: 1;
+  text-align: center;
+  color: #8a94a6;
+  font-size: 12px;
+}
+
+.dois-cartoes {
+  display: flex;
+  gap: 16px;
+}
+
+.dois-cartoes .card {
+  flex: 1;
+}
+
+.recorde {
+  font-size: 24px;
+  font-weight: 900;
+  margin: 8px 0;
+}
+
+.tipo {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.verde {
+  color: #b6ff3c;
+}
+
+.azul {
+  color: #2e9bff;
+}
+
+.laranja {
+  color: #ff7a29;
+}
+
+.treino {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bola {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.bola.verde {
+  background: #b6ff3c;
+}
+
+.bola.azul {
+  background: #2e9bff;
+}
+
+.bola.laranja {
+  background: #ff7a29;
+}
+
+.nome {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.info {
+  color: #8a94a6;
+  font-size: 13px;
+}
+
+.botao {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 24px;
+  background: #b6ff3c;
+  color: #000;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: #c6ff66;
+}
+
+.botao:disabled,
+.botao:disabled:hover {
+  background: #59614d;
+  cursor: not-allowed;
+}
+
+.controles-treino select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #303a47;
+  border-radius: 12px;
+  background: #0b0f14;
+  color: #fff;
+  font-size: 16px;
+}
+
+.controles-treino select:disabled {
+  opacity: 0.6;
+}
+
+.aviso-gps,
+.vazio {
+  color: #8a94a6;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.status-treino {
+  color: #b6ff3c;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.status-treino.erro {
+  color: #ff7a29;
+}

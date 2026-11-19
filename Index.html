@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ritmo</title>
+    <meta name="theme-color" content="#0b0f14" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="Style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="topo">
+      <div class="logo">RITMO</div>
+      <div class="perfil">Seus treinos</div>
+    </div>
+
+    <main>
+      <h1 class="titulo">Dashboard</h1>
+
+      <section class="card" aria-labelledby="resumo-titulo">
+        <h2 class="rotulo" id="resumo-titulo">ESTA SEMANA</h2>
+        <div class="resumo">
+          <div>
+            <div class="distancia" id="distancia-semana">0,00 km</div>
+            <div class="legenda">distância</div>
+          </div>
+          <div>
+            <div class="tempo" id="tempo-semana">0 min</div>
+            <div class="legenda">tempo em atividade</div>
+          </div>
+          <div>
+            <div class="tempo" id="quantidade-semana">0</div>
+            <div class="legenda">treinos</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="grafico-titulo">
+        <h2 class="rotulo" id="grafico-titulo">DISTÂNCIA POR DIA</h2>
+        <div class="grafico" id="grafico-semana" aria-label="Distância registrada por dia"></div>
+        <div class="dias" id="dias-semana"></div>
+      </section>
+
+      <div class="dois-cartoes">
+        <section class="card">
+          <h2 class="rotulo">MAIOR CORRIDA</h2>
+          <div class="recorde" id="recorde-corrida">—</div>
+          <div class="tipo verde" id="detalhe-corrida">Sem treinos ainda</div>
+        </section>
+        <section class="card">
+          <h2 class="rotulo">MAIOR PEDALADA</h2>
+          <div class="recorde" id="recorde-ciclismo">—</div>
+          <div class="tipo azul" id="detalhe-ciclismo">Sem treinos ainda</div>
+        </section>
+      </div>
+
+      <section class="card" aria-labelledby="historico-titulo">
+        <h2 class="rotulo" id="historico-titulo">ÚLTIMOS TREINOS</h2>
+        <div id="historico-treinos">
+          <p class="vazio">Nenhum treino registrado ainda.</p>
+        </div>
+      </section>
+
+      <section class="card controles-treino" aria-label="Registrar treino">
+        <label class="rotulo" for="atividade">ATIVIDADE</label>
+        <select id="atividade">
+          <option value="corrida">Corrida</option>
+          <option value="caminhada">Caminhada</option>
+          <option value="ciclismo">Ciclismo</option>
+        </select>
+        <p class="aviso-gps" id="status-offline" role="status">
+          Para usar sem internet, abra o app uma vez por HTTPS e instale-o na tela inicial antes de sair.
+        </p>
+        <p class="aviso-gps">
+          O GPS usa satélites e não precisa de internet. Ative a localização e aguarde o sinal ao ar livre;
+          computadores geralmente não têm receptor GPS.
+        </p>
+        <button class="botao" id="botao-treino" type="button" aria-controls="status-treino">
+          INICIAR TREINO
+        </button>
+        <p class="status-treino" id="status-treino" role="status" aria-live="polite" hidden></p>
+      </section>
+    </main>
+  </body>
+</html>
